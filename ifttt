@@ -1,0 +1,47 @@
+#!/bin/bash
+
+VAROPTS=3
+
+usage() {
+    echo "Usage: $0 [-1 val1] [-2 val2] [-3 val3] [-k ifttt_key] trigger_name"
+}
+
+while getopts "h1:2:3:k:" opt
+do
+    case $opt in
+        [1-$VAROPTS]) VALUE[$opt]=$OPTARG;;
+        k) KEY=$OPTARG;;
+        h) usage; exit 1;
+    esac
+done
+NAME=${@:$OPTIND:1}
+
+if [ "$KEY" == '' ]; then
+    KEY=$IFTTT_KEY
+fi
+
+vals() {
+    for i in $(seq 1 $VAROPTS)
+    do
+        echo -n "\"value${i}\": \"${VALUE[$i]}\""
+        if [ $i -lt $VAROPTS ]; then
+            echo -n ', '
+        fi
+    done
+}
+
+if [ "$NAME" == '' ]; then
+    echo 'Trigger name is not defined'
+    usage
+    exit 3
+fi
+
+if [ "$KEY" == '' ]; then
+    echo 'No key is provided. Use option `-k` or environment variable'\
+         'IFTTT_KEY to set the key.'
+    echo 'You can obtain it here: https://ifttt.com/maker'
+    exit 4
+fi
+
+curl -X POST -H "Content-Type: application/json" -d "{$(vals)}"\
+    https://maker.ifttt.com/trigger/${NAME}/with/key/${KEY}
