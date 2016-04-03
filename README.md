@@ -1,6 +1,13 @@
 # IFTTT trigger
 
-Simple CLI trigger for IFTTT Maker
+Simple CLI trigger for IFTTT
+
+```
+$ ./ifttt -h
+Usage: ./ifttt [-1 val1] [-2 val2] [-3 val3] [-k ifttt_key] trigger_name
+```
+
+So you can fire custom event as easy as:
 
 ```
 $ ./ifttt light_on
@@ -8,8 +15,8 @@ No key is provided. Use option `-k` or environment variable IFTTT_KEY to set the
 You can obtain it here: https://ifttt.com/maker
 ```
 
-You have to connect your IFTTT account to [IFTTT Maker channel][1] and either
-use your key as `-k` option, or save it to your init script:
+To do so you have to connect your IFTTT account to [IFTTT Maker channel][1] and
+either use your key as `-k` option, or save it to your init script:
 ```
 $ ./ifttt -k 123MyDemoKey123 light_on
 Congratulations! You've fired the light_on event%
