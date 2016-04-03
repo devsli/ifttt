@@ -16,9 +16,7 @@ do
 done
 NAME=${@:$OPTIND:1}
 
-if [ "$KEY" == '' ]; then
-    KEY=$IFTTT_KEY
-fi
+[ "$KEY" == '' ] && KEY=$IFTTT_KEY
 
 vals() {
     for i in $(seq 1 $VAROPTS)
