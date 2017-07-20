@@ -16,7 +16,7 @@ do
 done
 NAME=${@:$OPTIND:1}
 
-[ "$KEY" == '' ] && KEY=$IFTTT_KEY
+[ -z "$KEY" ] && KEY=$IFTTT_KEY
 
 vals() {
     for i in $(seq 1 $VAROPTS)
@@ -28,17 +28,17 @@ vals() {
     done
 }
 
-if [ "$NAME" == '' ]; then
+if [ -z "$NAME" ]; then
     echo 'Trigger name is not defined'
     usage
-    exit 3
+    exit 1
 fi
 
-if [ "$KEY" == '' ]; then
+if [ -z "$KEY" ]; then
     echo 'No key is provided. Use option `-k` or environment variable'\
          'IFTTT_KEY to set the key.'
-    echo 'You can obtain it here: https://ifttt.com/maker'
-    exit 4
+    echo 'You can obtain it here: https://ifttt.com/maker_webhooks'
+    exit 1
 fi
 
 curl -X POST -H "Content-Type: application/json" -d "{$(vals)}"\
