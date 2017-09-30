@@ -16,7 +16,7 @@ You can obtain it here: https://ifttt.com/maker
 ```
 
 To do so you have to connect your IFTTT account to [IFTTT Maker channel][1] and
-either use your key as `-k` option, or save it to your init script:
+either use your key as `-k` option or save it to your init script:
 ```
 $ ./ifttt -k 123MyDemoKey123 light_on
 Congratulations! You've fired the light_on event%
@@ -29,7 +29,7 @@ $ ./ifttt light_on
 Congratulations! You've fired the light_on event%
 ```
 
-It's possible to use [up to 3][2] custom variables:
+You can use [up to 3][2] custom variables:
 ```shell
 $ ./ifttt -1 "some param" -2 "another one param" -3 "third" light_on
 Congratulations! You've fired the light_on event%
