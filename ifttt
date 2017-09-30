@@ -1,22 +1,22 @@
 #!/bin/bash
 
 VAROPTS=3
+KEY=$IFTTT_KEY
 
 usage() {
-    echo "Usage: $0 [-1 val1] [-2 val2] [-3 val3] [-k ifttt_key] trigger_name"
+    echo "Usage: $0 [-1 val1] [-2 val2] [-3 val3] [-k ifttt_key] [-v] [-h] trigger_name"
 }
 
-while getopts "h1:2:3:k:" opt
+while getopts "hv1:2:3:k:" opt
 do
     case $opt in
         [1-$VAROPTS]) VALUE[$opt]=$OPTARG;;
         k) KEY=$OPTARG;;
-        h) usage; exit 1;
+        v) set -x;;
+        h) usage; exit 0;
     esac
 done
 NAME=${@:$OPTIND:1}
-
-[ -z "$KEY" ] && KEY=$IFTTT_KEY
 
 vals() {
     for i in $(seq 1 $VAROPTS)
